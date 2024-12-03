@@ -1,21 +1,20 @@
-import React from 'react'
-import CreateAdmin from '../components/CreateAdminForm'
-import LogOut from '../authentication/logout/page'
+import React from "react";
+import CreateAdmin from "../components/AdminOperations";
+import LogOut from "../authentication/logout/page";
+import ChangeUser from "../components/ChangeUser";
+import AdminOperations from "../components/AdminOperations";
 
 const page = () => {
-    
   return (
     <>
-    <div className=''>
-      <LogOut/>
-      <CreateAdmin/>
-    </div>
-
-    <div className='bg-green-700'>
-        Edit User
-    </div>
+      <div className="">
+        <LogOut />
+        <AdminOperations/>
+    <div>
+     </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

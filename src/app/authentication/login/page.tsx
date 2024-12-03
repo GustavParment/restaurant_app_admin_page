@@ -51,6 +51,7 @@ export default function SignIn() {
       console.log("Login successful:", data);
 
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
 
       router.push("/dashboard");
     } catch (error) {
@@ -60,56 +61,67 @@ export default function SignIn() {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md">
-      <header className="text-2xl font-bold text-center mb-4">Please Login</header>
-      <section>
-        <form onSubmit={onSubmit} className="space-y-4">
-          {/* Username */}
-          <div className="flex flex-col">
-            <label htmlFor="username" className="text-sm font-medium text-gray-700">
-              Username
-            </label>
-            <input
-              className="border rounded-lg p-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter username..."
-              type="text"
-              name="username"
-              value={user.username}
-              onChange={handleUserChange}
-            />
-          </div>
-
-          {/* Password */}
-          <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              className="border rounded-lg p-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter password..."
-              type="password"
-              name="password"
-              value={user.password}
-              onChange={handleUserChange}
-            />
-          </div>
-
-          {/* Error Message */}
-          {errorResponse && (
-            <div className="text-red-500 text-center text-sm">
-              {errorResponse}
+    <div className="bg-slate-950 bg-gradient-to-t from-blue-100 h-screen mt-4">
+      <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-md ">
+       
+        <header className="text-2xl font-bold text-center mb-4 text-black">
+          Admin Login
+        </header>
+        <section>
+          <form onSubmit={onSubmit} className="space-y-4">
+            {/* Username */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="username"
+                className="text-sm font-medium text-black"
+              >
+                Username
+              </label>
+              <input
+                className="text-black border rounded-lg p-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter username..."
+                type="text"
+                name="username"
+                value={user.username}
+                onChange={handleUserChange}
+              />
             </div>
-          )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg mt-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Login
-          </button>
-        </form>
-      </section>
+            {/* Password */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                className="text-black border rounded-lg p-2 mt-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter password..."
+                type="password"
+                name="password"
+                value={user.password}
+                onChange={handleUserChange}
+              />
+            </div>
+
+            {/* Error Message */}
+            {errorResponse && (
+              <div className="text-red-500 text-center text-sm">
+                {errorResponse}
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 rounded-lg mt-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Login
+            </button>
+          </form>
+        </section>
+      </div>
     </div>
   );
 }

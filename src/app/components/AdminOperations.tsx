@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
+import ChangeUser from "./ChangeUser";
 
 export interface IAdmin {
   username: string;
@@ -12,7 +13,7 @@ export interface IAdmin {
   birthday: string;
 }
 
-export default function CreateAdmin() {
+export default function AdminOperations() {
   const [admin, setAdmin] = useState<IAdmin>({
     username: "",
     password: "",
@@ -23,8 +24,8 @@ export default function CreateAdmin() {
   });
 
   const router = useRouter();
-  const [creationError, setCreationError ] = useState<string | null>(null);
-  const [creationSuccess, setCreationSuccess ] = useState<string | null>(null);
+  const [creationError, setCreationError] = useState<string | null>(null);
+  const [creationSuccess, setCreationSuccess] = useState<string | null>(null);
 
   function handleAdminChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -33,8 +34,8 @@ export default function CreateAdmin() {
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
-    setCreationError(null)
-    setCreationSuccess(null)
+    setCreationError(null);
+    setCreationSuccess(null);
 
     const createJsonBody = (admin: IAdmin): string => {
       return JSON.stringify(admin);
@@ -64,6 +65,18 @@ export default function CreateAdmin() {
         })
         .then((data) => {
           console.log("Admin created successfully:", data);
+
+          setAdmin({
+            username: "",
+            password: "",
+            email: "",
+            firstName: "",
+            lastName: "",
+            birthday: "",
+          });
+
+          setCreationSuccess("Admin created successfully!");
+
           router.push("/dashboard");
         })
         .catch((error) => {
@@ -72,17 +85,18 @@ export default function CreateAdmin() {
             console.error("Error: Request timed out");
           } else {
             console.error("Error:", error);
+            setCreationError("Failed to create admin. Please try again.");
           }
         });
     } catch (error: any) {
       console.error(error);
-      setCreationError(error.message || "Faild to create admin")
+      setCreationError(error.message || "Failed to create admin.");
     }
   }
 
   return (
     <div className="bg-slate-950 bg-gradient-to-t from-blue-100 h-screen">
-      <div className="container mx-auto py-8">
+      <div className="flex flex-col">
         <h1 className="text-2xl font-bold mb-6 text-center text-white">
           Create Admin
         </h1>
@@ -90,6 +104,7 @@ export default function CreateAdmin() {
           onSubmit={onSubmit}
           className="w-full max-w-sm mx-auto p-6 rounded-lg shadow-md bg-white"
         >
+          {/* Form fields */}
           {[
             { name: "username", type: "text", placeholder: "Username" },
             { name: "password", type: "password", placeholder: "Password" },
@@ -124,13 +139,16 @@ export default function CreateAdmin() {
             Create Admin
           </button>
         </form>
-        {creationError &&(
-          <p className="text-red-500 text-center mt-4"></p>
+
+        {/* Error or success messages */}
+        {creationError && (
+          <p className="text-red-500 text-center mt-4">{creationError}</p>
         )}
         {creationSuccess && (
-          <p className="text-green-500 text-center mt-4"></p>
+          <p className="text-green-500 text-center mt-4">{creationSuccess}</p>
         )}
       </div>
+      <ChangeUser />
     </div>
   );
 }
