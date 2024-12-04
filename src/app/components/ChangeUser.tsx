@@ -13,7 +13,7 @@ const ChangeUser = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
 
@@ -33,7 +33,7 @@ const ChangeUser = () => {
   }, []);
 
   return (
-    <div className="flex flex-col ">
+    <div className="">
       <h1 className="text-2xl font-bold mb-4">All Users in Database</h1>
 
       {error && <p className="text-red-500">{error}</p>}
@@ -45,7 +45,9 @@ const ChangeUser = () => {
               <th className="text-black p-3 border-b">Username</th>
               <th className="text-black p-3 border-b">Email</th>
               <th className="text-black p-3 border-b">Password</th>
-              <p className="text-black font-bold p-3 border-b">Edit</p>
+              <th>
+                <p className="text-black font-bold p-3 border-b">Edit</p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -54,9 +56,11 @@ const ChangeUser = () => {
                 <td className="text-black p-3 border-b">{user.username}</td>
                 <td className="text-black p-3 border-b">{user.email}</td>
                 <td className="text-black p-3 border-b">{user.password}</td>
-                <button className="bg-blue-700 py-2 px-1 rounded-sm font-bold ">
-                  change
-                </button>
+                <td>
+                  <button className="bg-blue-700 py-2 px-1 rounded-sm font-bold ">
+                    change
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

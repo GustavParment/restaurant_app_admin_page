@@ -1,15 +1,12 @@
 export interface IUser {
-    id:{
-        timestamp:number,
-        date: string
-    }
+    id?: string | number
     username: string
     password: string
-    email: string,
-    firstName: string,
-    lastName: string,
-    birthday: string,
-    role: string, 
-    profile:[],
-    matchListId: []
+    email?: string,
+    firstName?: string,
+    lastName?: string,
+    birthday?: string,
+    role?: string, 
+    profile?:[],
+    matchListId?: []
 }

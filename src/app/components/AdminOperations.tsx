@@ -51,7 +51,7 @@ export default function AdminOperations() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: createJsonBody(admin),
         signal,
@@ -96,7 +96,7 @@ export default function AdminOperations() {
 
   return (
     <div className="bg-slate-950 bg-gradient-to-t from-blue-100 h-screen">
-      <div className="flex flex-col">
+      <div className="container">
         <h1 className="text-2xl font-bold mb-6 text-center text-white">
           Create Admin
         </h1>
