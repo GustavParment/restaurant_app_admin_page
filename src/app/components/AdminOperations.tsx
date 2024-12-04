@@ -85,7 +85,7 @@ export default function AdminOperations() {
             console.error("Error: Request timed out");
           } else {
             console.error("Error:", error);
-            setCreationError("Failed to create admin. Please try again.");
+            setCreationError("Failed to create admin, only SUPER ADMIN can create ADMIN");
           }
         });
     } catch (error: any) {
@@ -95,14 +95,14 @@ export default function AdminOperations() {
   }
 
   return (
-    <div className="bg-slate-950 bg-gradient-to-t from-blue-100 h-screen">
-      <div className="container">
+    <div className="bg-slate-950 bg-gradient-to-t from-blue-100 min-h-screen p-4 sm:p-8">
+      <div>
         <h1 className="text-2xl font-bold mb-6 text-center text-white">
           Create Admin
         </h1>
         <form
           onSubmit={onSubmit}
-          className="w-full max-w-sm mx-auto p-6 rounded-lg shadow-md bg-white"
+          className="w-full max-w-md mx-auto p-6 rounded-lg shadow-md bg-white"
         >
           {/* Form fields */}
           {[
@@ -148,7 +148,11 @@ export default function AdminOperations() {
           <p className="text-green-500 text-center mt-4">{creationSuccess}</p>
         )}
       </div>
-      <ChangeUser />
+
+      {/* ChangeUser Component */}
+      <div className="mt-8">
+        <ChangeUser />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,98 @@
+<div className="p-4 sm:p-8 h-screen min-h-screen">
+      <h1 className="text-2xl font-bold mb-4 text-center">
+        All Users in Database
+      </h1>
+
+      {error && <p className="text-red-500 text-center">{error}</p>}
+
+      {users.length > 0 ? (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="text-black p-3 border-b text-left">Username</th>
+                <th className="text-black p-3 border-b text-left">Email</th>
+                <th className="text-black p-3 border-b text-left">Role</th>
+                <th className="text-black font-bold p-3 border-b text-left">
+                  Edit
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id} className="hover:bg-gray-100">
+                  <td className="text-black p-3 border-b">{user.username}</td>
+                  <td className="text-black p-3 border-b">{user.email}</td>
+                  <td className="text-black p-3 border-b">{user.role}</td>
+                  <td>
+                    <button
+                      onClick={() => openModal(user)}
+                      className="bg-blue-700 text-white py-2 px-4 rounded-md font-bold hover:bg-blue-800"
+                    >
+                      Change
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-center">No users found.</p>
+      )}
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-lg w-4/5 max-w-sm p-6">
+            <h2 className="text-xl font-bold mb-4">Edit User</h2>
+
+            {/* Display User ID */}
+            <label className="block mb-2 text-gray-700">
+              User ID
+              <input
+                type="text"
+                value={selectedUser?.id?.toString() || ""}
+                readOnly
+                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+              />
+            </label>
+
+            <label className="block mb-2 text-gray-700">
+              Username
+              <input
+                type="text"
+                value={updatedUsername}
+                onChange={(e) => setUpdatedUsername(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              />
+            </label>
+
+            <label className="block mb-2 text-gray-700">
+              Password
+              <input
+                type="password"
+                value={updatedPassword}
+                onChange={(e) => setUpdatedPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              />
+            </label>
+
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={closeModal}
+                className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveChanges}
+                className="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-800"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
